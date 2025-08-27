@@ -18,7 +18,7 @@ struct ContentView: View {
             Image(systemName: "key.horizontal")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-//            Text("\(ProtectedKeys.aesKey.count)")
+            Text("\(GeneratedKey.getAPIKey() ??  "Key not found")")
         }
         .padding()
     }
