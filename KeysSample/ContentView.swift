@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
-
+//func printKey() {
+//    let encrypted = ProtectedKeys.encryptedAPIKey
+//    let key = ProtectedKeys.aesKey
+//    print("Encrypted API Key: \(encrypted)")
+//    print("AES Key: \(key)")
+//}
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "key.horizontal")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+//            Text("\(ProtectedKeys.aesKey.count)")
         }
         .padding()
     }

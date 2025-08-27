@@ -45,6 +45,11 @@
 			path = KeysSampleUITests;
 			sourceTree = "<group>";
 		};
+		0D8D39BE2E5F1E4000E96381 /* Generated */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Generated;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +80,7 @@
 		0D8D39602E5EFF7100E96381 = {
 			isa = PBXGroup;
 			children = (
+				0D8D39BE2E5F1E4000E96381 /* Generated */,
 				0D8D396B2E5EFF7100E96381 /* KeysSample */,
 				0D8D39792E5EFF7300E96381 /* KeysSampleTests */,
 				0D8D39832E5EFF7300E96381 /* KeysSampleUITests */,
@@ -99,6 +105,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D8D398A2E5EFF7300E96381 /* Build configuration list for PBXNativeTarget "KeysSample" */;
 			buildPhases = (
+				0D8D39A52E5F045800E96381 /* Key Generation */,
 				0D8D39652E5EFF7100E96381 /* Sources */,
 				0D8D39662E5EFF7100E96381 /* Frameworks */,
 				0D8D39672E5EFF7100E96381 /* Resources */,
@@ -109,6 +116,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0D8D396B2E5EFF7100E96381 /* KeysSample */,
+				0D8D39BE2E5F1E4000E96381 /* Generated */,
 			);
 			name = KeysSample;
 			packageProductDependencies = (
@@ -230,6 +238,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D8D39A52E5F045800E96381 /* Key Generation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Scripts/generate_protected_keys.swift",
+			);
+			name = "Key Generation";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${SRCROOT}/Generated/ProtectedKeys.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nset -euo pipefail\nSCRIPT=\"${SRCROOT}/Scripts/generate_protected_keys.swift\"\nOUTDIR=\"${SRCROOT}/Generated\"\nOUTFILE=\"${OUTDIR}/ProtectedKeys.swift\"\n# Use /tmp for the temporary file to avoid sandbox issues\nTMPFILE=\"/tmp/ProtectedKeys.tmp.swift\"\n # Ensure output directory exists\n mkdir -p \"$OUTDIR\"\n\n # Run the Swift script and capture stdout to a temp file\n xcrun --sdk macosx swift \"$SCRIPT\" > \"$TMPFILE\"\n\n # Set safe perms for tmp file\n chmod 644 \"$TMPFILE\"\n\n # Atomically overwrite the placeholder file inside your\nmv -f \"$TMPFILE\" \"$OUTFILE\"\n\n # Ensure timestamp changed so Xcode notices\n touch \"$OUTFILE\"\n\n echo \"✅ ProtectedKeys generated at:  $OUTFILE\" >&2\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0D8D39652E5EFF7100E96381 /* Sources */ = {
@@ -407,9 +438,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = app.sample.KeysSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -434,9 +467,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = app.sample.KeysSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
